@@ -1,0 +1,198 @@
+<html>
+  <head>
+    <title>A-Frame Layer Component - Basic</title>
+	<link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@c27d4a2156bde2ec249600fca4967ba49fecfdc3/dist/aframe-master.min.js"></script>
+    <script src="build.js"></script>
+	<script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+	<script src="play-on-click.js"></script>
+    <script src="hide-on-play.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  </head>
+  <body>
+    <a-scene>
+		<a-assets>  
+			<video id="video" class="video-js" crossorigin='anonymous' data-setup="{}" >
+				<!--source src="https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8" type="application/x-mpegURL" /--->
+				<source src="160s.m3u8" type="application/x-mpegURL" />
+			</video>
+			<script src="https://unpkg.com/video.js/dist/video.js"></script>
+			
+		</a-assets>
+		
+      <!-- Camera -->
+      
+      <!-- Video spheres
+	 <a-videosphere
+		geometry="thetaLength:120;radius:100; segmentsWidth: 64; segmentsHeight:64" material="shader:flat;"
+		playsinline
+        rotation="0 0 0"
+        src="#video"
+        visible="false"
+        play-on-click
+		stereo="eye:left">
+      </a-videosphere>
+	  <a-videosphere
+		geometry="phiLength:120;radius:100; segmentsWidth: 64; segmentsHeight:64" material="shader:flat;"
+		playsinline
+        rotation="0 0 0"
+        src="#video"
+        visible="false"
+        play-on-click
+		stereo="eye:right">
+      </a-videosphere> -->
+	<a-camera stereocam="eye:left;">
+        <a-entity
+          position="0 0 0"
+          text="align: center;
+                width: 6;
+                wrapCount: 100;
+                color: black;
+                value: Click or tap to start video"
+          hide-on-play="#video">
+        </a-entity>
+      </a-camera>
+	  
+	  <a-entity laser-controls="hand: right"  raycaster="far: 5"></a-entity>
+      <a-entity laser-controls="hand: left"  raycaster="far: 5"></a-entity>  
+	  
+      <a-entity scale="-1 1 1" play-on-click geometry="primitive:sphere; radius:100; " material="shader:flat; src:#video; side:back;" stereo="eye:left;mode:half" ></a-entity>
+      <a-entity scale="-1 1 1" play-on-click geometry="primitive:sphere; radius:100; " material="shader:flat; src:#video; side:back;" stereo="eye:right;mode:half" ></a-entity>
+	  <a-text value="Hello, World!"></a-text>
+	  <!--a-gui-flex-container
+			flex-direction="row" justify-content="center" align-items="normal" component-padding="0.1"
+			opacity="0.7" width="5.5" height="1"
+			position="0 1 -4" rotation="0 0 0" scale="0.5 0.5 0.5"
+		>
+			<a-gui-icon-button
+				width="0.75" height="0.75"
+				onclick="togglePlayback"
+				icon="f04b"
+				icon-font-size="0.3"
+				icon-font="assets/fonts/fa-solid-900.ttf"
+			>
+			</a-gui-icon-button>
+			<a-gui-icon-button
+				width="0.75" height="0.75"
+				onclick="stop"
+				icon="f04d"
+				icon-font-size="0.3"
+				icon-font="assets/fonts/fa-solid-900.ttf"
+			>
+			</a-gui-icon-button>
+			<a-gui-icon-button
+				width="0.75" height="0.75"
+				onclick="toggleSound"
+				icon="f6a9"
+				icon-font-size="0.4"
+				icon-font="assets/fonts/fa-solid-900.ttf"
+			>
+			</a-gui-icon-button>
+			<a-gui-toggle
+				width="2.75" height="0.75"
+				onclick="toggleCaps"
+				value="Captions"
+				font-family="assets/fonts/DiplomataSC-Regular.ttf"
+			>
+			</a-gui-toggle>
+		</a-gui-flex-container>
+        <a-gui-flex-container 
+        flex-direction="row" justify-content="center" align-items="normal" component-padding="0.1" opacity="0.7" width="7.0" height="3.5" 
+        panel-color="#000000" 
+        panel-rounded="0.2"
+        position="0 2.5 -3" scale="0.5 0.5 0.5" rotation="0 0 0"
+        >
+        <a-gui-button
+            height="1.5" 
+            width="1.5" 
+            onclick="videoplay(0)"        
+            icon-font="assets/fonts/fa-solid-900.ttf"
+            margin="0.1 0.1 0.1 0.1"
+        >       
+        </a-gui-button>
+        <a-gui-button
+            height="1.5" 
+            width="1.5"          
+            icon="f6a9"
+            onclick="videoplay(0)"   
+            icon-font="assets/fonts/fa-solid-900.ttf"
+            margin="0.1 0.1 0.1 0.1"
+        >       
+        </a-gui-button>
+        <a-gui-button
+            height="1.5" 
+            width="1.5"   
+            onclick="videoplay(0)"          
+            icon-font="assets/fonts/fa-solid-900.ttf"
+            margin="0.1 0.1 0.1 0.1"
+        >       
+        </a-gui-button>
+        <a-gui-button
+            height="1.5" 
+            width="1.5"   
+            onclick="videoplay(0)"         
+            icon-font="assets/fonts/fa-solid-900.ttf"
+            margin="0.1 0.1 0.1 0.1"
+        >  
+        <a-gui-button
+            height="1.5" 
+            width="1.5"     
+            onclick="videoplay(0)"       
+            icon-font="assets/fonts/fa-solid-900.ttf"
+            margin="0.1 0.1 0.1 0.1"
+        >       
+        </a-gui-button>
+         </a-gui-flex-container--> 
+    </a-scene>
+	
+<script type="text/javascript">
+	    var video_el = document.getElementById("film");
+		function togglePlayback () {
+			console.log('play/pause movie');
+			if(!video_el.paused){
+            	video_el.pause();
+        	}
+        	else {
+            	video_el.play();
+        	}
+
+			// var filmEl = document.getElementById('video')
+			// var material = Object.assign({}, filmEl.getAttribute('material'))
+			// material.pause = !material.pause
+			// filmEl.setAttribute('material', material)
+		}
+		function stop () {
+			console.log('stop movie');
+			video_el.pause();
+		}
+		function toggleSound () {
+			console.log('toggleSound on/off');
+			if(!video_el.muted){
+            	video_el.muted == true;
+        	}
+        	else {
+            	video_el.muted == false;
+        	}
+
+		}
+		function toggleCaps () {
+			console.log('toggleCaps visible/hidden');
+		}
+        function videoplay(value) {
+			if(value==0) {
+                video_el.setAttribute("src", "assets/01.mp4");
+
+			} else if(value==1) {
+                video_el.setAttribute("src", "assets/02.mp4");
+
+			} else if(value==2) {
+                video_el.setAttribute("src", "assets/03.mp4");
+
+			} else if(value==3) {
+                video_el.setAttribute("src", "assets/04.mp4");
+			}
+		}
+
+    </script>
+  </body>
+</html>
